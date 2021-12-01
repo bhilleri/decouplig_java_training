@@ -1,5 +1,6 @@
 package fr.lernejo.guessgame;
 
+import com.sun.jdi.Value;
 import fr.lernejo.logger.Logger;
 import fr.lernejo.logger.LoggerFactory;
 
@@ -28,23 +29,32 @@ public class Simulation {
         }
         else if(testedValue < this.numberToGuess){
             this.player.respond(false);
-            this.logger.log("plus grand");
+            this.logger.log("valeur testé : " + testedValue + ", la valeur à trouver est plus grande");
             return false;
         }
         else
         {
             // testedValue > this.numberToGuess
             this.player.respond(true);
-            this.logger.log("plus petit");
+            this.logger.log("valeur testé : " + testedValue + ", la valeur à trouver est plus petite");
             return false;
         }
     }
 
-    public void loopUntilPlayerSucceed() {
+    public long loopUntilPlayerSucceed(long limit) {
         boolean resultat = false;
-        while(resultat == false)
+        long timeInitial = System.currentTimeMillis();
+        int turn = 0;
+        while(resultat == false && turn < limit)
         {
+            turn++;
             resultat = this.nextRound();
         }
+        long duration =  System.currentTimeMillis() - timeInitial;
+        int minute = (int)duration/1000/60;
+        int second = (int)(duration/1000)%60;
+        int millisecond = (int)(duration)%(1000);
+        System.out.println((minute<10 ? "0"+minute : minute) + ":" + (second<10 ? "0" + second : second) + ":" + (millisecond >=100 ? millisecond : millisecond>=10? "0" + millisecond : "00" + millisecond));
+        return duration;
     }
 }
