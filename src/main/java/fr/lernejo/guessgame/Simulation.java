@@ -24,7 +24,7 @@ public class Simulation {
         long testedValue = player.askNextGuess();
         if(testedValue == this.numberToGuess)
         {
-            this.logger.log("Résultat trouvé");
+            this.logger.log("Bravo");
             return true;
         }
         else if(testedValue < this.numberToGuess){
