@@ -12,7 +12,7 @@ public class ContextualLogger implements Logger{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         delegateLogger.log(LocalDateTime.now().format(formatter) + " " + callerClass + " " + message);
     }
-    public ContextualLogger(Logger delegateLogger, String callerClass )
+    public ContextualLogger(String callerClass,Logger delegateLogger)
     {
         this.delegateLogger = delegateLogger;
         this.callerClass = callerClass;
